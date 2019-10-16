@@ -38,9 +38,6 @@ class MineSweeper:
                 return True
 
     def countMines(self,x,y):
-        #adjust for zero offset
-        #x-=1
-        #y-=1
         count = self.isMine(x - 1, y - 1) + self.isMine(x - 1, y) + self.isMine(x - 1, y + 1) + \
               self.isMine(x + 1, y - 1) + self.isMine(x + 1, y) + self.isMine(x + 1, y + 1) + \
               self.isMine(x, y - 1) + self.isMine(x, y + 1)
@@ -59,7 +56,7 @@ class MineSweeper:
 
 
     def printBoard(self):
-        # print(self.board)
+        #Print board mapping stored values to Characters for display
         mapCharacters = {
             'SafeCovered' : "#",
             'Cleared' : " ",
@@ -69,12 +66,13 @@ class MineSweeper:
         output = ""
         for row in self.board :
             for cell in row :
-                output += mapCharacters.get(cell, str(cell))
+                output += mapCharacters.get(cell, str(cell)) #Unmapped Characters are number of mines
             output += "\n"
         return output
 
     def checkWin(self):
         # Check for only mines left
+        # Return False if there is more work to be done
         for row in self.board :
             for cell in row :
                 if cell == 'SafeCovered' :
